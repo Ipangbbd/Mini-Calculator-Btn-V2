@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced or V2 Calc By Ali</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Toggle button -->
+    <button id="calcBtn">
+        <i class="fas fa-calculator"></i>
+        <span>Calculator</span>
+    </button>
+
+    <!-- Calculator panel -->
+    <div id="calc">
+        <div class="calc-header">
+            <div class="calc-title">Calculator</div>
+            <div class="calc-controls">
+                <button class="calc-control-btn" id="modeBtn" title="Scientific Mode">
+                    <i class="fas fa-flask"></i>
+                </button>
+                <button class="calc-control-btn" id="formulaBtn" title="Formulas">
+                    <i class="fas fa-book"></i>
+                </button>
+                <button class="calc-control-btn" id="closeX" title="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="calc-display">
+            <div class="calc-history" id="history"></div>
+            <div id="result">0</div>
+        </div>
+        
+        <div class="scientific-panel" id="scientificPanel">
+            <div class="sci-btn-grid">
+                <button class="btn sci-btn" onclick="scientificOp('sin')">sin</button>
+                <button class="btn sci-btn" onclick="scientificOp('cos')">cos</button>
+                <button class="btn sci-btn" onclick="scientificOp('tan')">tan</button>
+                <button class="btn sci-btn" onclick="scientificOp('sqrt')">√</button>
+                <button class="btn sci-btn" onclick="scientificOp('pow')">x^y</button>
+                <button class="btn sci-btn" onclick="scientificOp('log')">log</button>
+                <button class="btn sci-btn" onclick="scientificOp('ln')">ln</button>
+                <button class="btn sci-btn" onclick="scientificOp('pi')">π</button>
+                <button class="btn sci-btn" onclick="scientificOp('e')">e</button>
+                <button class="btn sci-btn" onclick="scientificOp('fact')">x!</button>
+                <button class="btn sci-btn" onclick="scientificOp('inv')">1/x</button>
+                <button class="btn sci-btn" onclick="scientificOp('abs')">|x|</button>
+            </div>
+        </div>
+        
+        <div class="btn-grid">
+            <button class="btn clear" onclick="clearAll()">C</button>
+            <button class="btn back" onclick="backspace()"><i class="fas fa-backspace"></i></button>
+            <button class="btn op" onclick="addOp('%')">%</button>
+            <button class="btn op" onclick="addOp('/')">÷</button>
+
+            <button class="btn" onclick="addNum('7')">7</button>
+            <button class="btn" onclick="addNum('8')">8</button>
+            <button class="btn" onclick="addNum('9')">9</button>
+            <button class="btn op" onclick="addOp('*')">×</button>
+
+            <button class="btn" onclick="addNum('4')">4</button>
+            <button class="btn" onclick="addNum('5')">5</button>
+            <button class="btn" onclick="addNum('6')">6</button>
+            <button class="btn op" onclick="addOp('-')">−</button>
+
+            <button class="btn" onclick="addNum('1')">1</button>
+            <button class="btn" onclick="addNum('2')">2</button>
+            <button class="btn" onclick="addNum('3')">3</button>
+            <button class="btn op" onclick="addOp('+')">+</button>
+
+            <button class="btn" onclick="addNum('0')">0</button>
+            <button class="btn" onclick="addNum('00')">00</button>
+            <button class="btn" onclick="addNum('.')">.</button>
+            <button class="btn eq" onclick="calculate()">=</button>
+        </div>
+        
+        <div class="formula-panel" id="formulaPanel">
+            <div class="formula-group">
+                <div class="formula-title">Geometry</div>
+                <div class="formula-item" onclick="applyFormula('area_circle', 'π*r²')">
+                    <div class="formula-name">Circle Area</div>
+                    <div class="formula-expr">π*r²</div>
+                </div>
+                <div class="formula-item" onclick="applyFormula('area_triangle', '(b*h)/2')">
+                    <div class="formula-name">Triangle Area</div>
+                    <div class="formula-expr">(b*h)/2</div>
+                </div>
+                <div class="formula-item" onclick="applyFormula('pythagoras', '√(a²+b²)')">
+                    <div class="formula-name">Pythagoras</div>
+                    <div class="formula-expr">√(a²+b²)</div>
+                </div>
+            </div>
+            
+            <div class="formula-group">
+                <div class="formula-title">Algebra</div>
+                <div class="formula-item" onclick="applyFormula('quadratic', '(-b±√(b²-4ac))/2a')">
+                    <div class="formula-name">Quadratic Formula</div>
+                    <div class="formula-expr">(-b±√(b²-4ac))/2a</div>
+                </div>
+                <div class="formula-item" onclick="applyFormula('slope', '(y2-y1)/(x2-x1)')">
+                    <div class="formula-name">Slope</div>
+                    <div class="formula-expr">(y2-y1)/(x2-x1)</div>
+                </div>
+            </div>
+            
+            <div class="formula-group">
+                <div class="formula-title">Physics</div>
+                <div class="formula-item" onclick="applyFormula('velocity', 'v = d/t')">
+                    <div class="formula-name">Velocity</div>
+                    <div class="formula-expr">v = d/t</div>
+                </div>
+                <div class="formula-item" onclick="applyFormula('force', 'F = m*a')">
+                    <div class="formula-name">Force</div>
+                    <div class="formula-expr">F = m*a</div>
+                </div>
+                <div class="formula-item" onclick="applyFormula('kinetic_energy', 'KE = 0.5*m*v²')">
+                    <div class="formula-name">Kinetic Energy</div>
+                    <div class="formula-expr">KE = 0.5*m*v²</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
